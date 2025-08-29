@@ -87,10 +87,11 @@
 
     function confirmOrder() {
       const message = cartData.map(item => `${item.name} - ₹${item.price}`).join('%0A');
-      const whatsappNumber = "8887041756"; // 🔁 Replace with your WhatsApp number like: 918888999900
+      const whatsappNumber = "918887041756"; // 🔁 Replace with your WhatsApp number like: 918888999900
       const whatsappURL = `https://wa.me/${whatsappNumber}?text=I%20want%20to%20order:%0A${message}`;
       window.open(whatsappURL, "_blank");
     }
   </script>
 </body>
 </html>
+
