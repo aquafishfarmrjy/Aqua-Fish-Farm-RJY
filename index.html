@@ -87,14 +87,9 @@
       border-radius: 10px;
     }
 
-    .ex-item-card h5 {
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-
-    .ex-item-card p {
-      font-size: 0.9rem;
-      margin-bottom: 8px;
+    h5 {
+      font-size: 0.85rem;
+      font-weight: bold;
     }
 
     .btn-group .btn {
@@ -103,7 +98,6 @@
       margin: 3px;
       border-radius: 6px;
       min-width: 90px;
-      max-width: 110px;
     }
 
     .btn-cart {
@@ -177,15 +171,21 @@
   </div>
 
   <script>
-    const cart = [];
+    let cart = JSON.parse(localStorage.getItem("fishCart")) || [];
 
     function showCards() {
       document.getElementById("welcome").style.display = "none";
       document.getElementById("cards").style.display = "block";
     }
 
-   const fishList = [
-      { name: "Yellow Mixed Guppy(Pair)", price: 60, img: "yellowtiger.jpg", link: "https://youtube.com/shorts/aTGqJ58gphY?si=Sov1pL3jncYctPdd" },
+    // Automatically show cards if coming from cart
+    if (localStorage.getItem("showCards") === "true") {
+      showCards();
+      localStorage.removeItem("showCards");
+    }
+
+    const fishList = [
+     { name: "Yellow Mixed Guppy(Pair)", price: 60, img: "yellowtiger.jpg", link: "https://youtube.com/shorts/aTGqJ58gphY?si=Sov1pL3jncYctPdd" },
       { name: "Red Mixed Guppy(Pair)", price: 60, img: "redmosic.jpg", link: "#" },
       { name: "Santa Claus (Pair)", price: 200, img: "santaclaus.jpg", link: "https://youtube.com/shorts/selEBe5fBjY?si=ruT19HEm5tGawhgA" },
       { name: "Flowerhorn Fish Fry (Pair)", price: 240, img: "flowerhorn.jpg", link: "https://youtube.com/shorts/6XgJ5aMcTmo?si=EvWCZ8-PDF4EuF6p" },
@@ -227,32 +227,34 @@
       { name: "Green Whale Tail Zebra(Pair)", price: 200, img: "green wheel.jpg", link: "https://youtube.com/shorts/Z-yL1JXQ5ms?si=6X0_DNDLbFxdey34" },
 
 
-];
-
+    ];
 
     const container = document.getElementById("fishCards");
 
-    fishList
-      .sort((a, b) => a.price - b.price)
-      .forEach((fish, index) => {
-        const card = document.createElement("div");
-        card.className = "col-12 col-md-6 col-lg-3 mb-4";
-        card.innerHTML = `
-          <div class="shadow ex-item-card text-center h-100">
-            <img src="${fish.img}" class="ex-image w-100 mb-2" alt="${fish.name}" onclick="openModal('${fish.img}')" />
-            <h5>${fish.name}</h5>
-            <p><strong>₹${fish.price}</strong></p>
-            <div class="btn-group d-flex justify-content-center flex-wrap">
-              <button class="btn btn-cart" onclick="addToCart(${index})">Add to Cart</button>
-              <a class="btn btn-view" href="${fish.link}" target="_blank">View</a>
-            </div>
+    fishList.sort((a, b) => a.price - b.price).forEach((fish, index) => {
+      const card = document.createElement("div");
+      card.className = "col-12 col-md-6 col-lg-3 mb-4";
+      card.innerHTML = `
+        <div class="shadow ex-item-card text-center h-100">
+          <img src="${fish.img}" class="ex-image w-100 mb-2" alt="${fish.name}" onclick="openModal('${fish.img}')" />
+          <h5>${fish.name}</h5>
+          <p style="font-size:0.85rem;"><strong>₹${fish.price}</strong></p>
+          <div class="btn-group d-flex justify-content-center flex-wrap">
+            <button class="btn btn-cart" onclick="addToCart(${index})">Add to Cart</button>
+            <a class="btn btn-view" href="${fish.link}" target="_blank">View</a>
           </div>
-        `;
-        container.appendChild(card);
-      });
+        </div>
+      `;
+      container.appendChild(card);
+    });
 
     function addToCart(index) {
-      const selectedFish = fishList[index];
+      const selectedFish = { ...fishList[index], quantity: 1 };
+      const exists = cart.find(item => item.name === selectedFish.name);
+      if (exists) {
+        alert(`${selectedFish.name} is already in your cart.`);
+        return;
+      }
       cart.push(selectedFish);
       localStorage.setItem("fishCart", JSON.stringify(cart));
       alert(`${selectedFish.name} added to cart!`);
