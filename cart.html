@@ -152,19 +152,29 @@
       renderCart();
     }
 
-    function confirmOrder() {
-      if (cartData.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      const message = cartData
-        .map(item => `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`)
-        .join('%0A');
-      const total = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      const whatsappNumber = "918887041756";
-      const whatsappURL = `https://wa.me/${whatsappNumber}?text=I%20want%20to%20order:%0A${message}%0A%0ATotal:%20₹${total}`;
-      window.open(whatsappURL, "_blank");
-    }
+   function confirmOrder() {
+  if (cartData.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let message = "🛒 *Aqua Fish Farm Order* 🐟%0A%0A";
+  message += "Fish Name | Quantity | Price per Unit | Total%0A";
+  message += "----------------------------------------%0A";
+
+  cartData.forEach(item => {
+    message += `${item.name} | ${item.quantity} | ₹${item.price} | ₹${item.price * item.quantity}%0A`;
+  });
+
+  const total = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  message += "----------------------------------------%0A";
+  message += `*Grand Total: ₹${total}*`;
+
+  const whatsappNumber = "918887041756";
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+  window.open(whatsappURL, "_blank");
+}
+
 
     renderCart();
   </script>
