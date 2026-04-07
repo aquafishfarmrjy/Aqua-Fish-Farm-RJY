@@ -1,194 +1,940 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Aqua Fish Farm Rajahmundry</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aqua Fish Farm – Rajahmundry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --teal: #0d6e6e;
+      --teal-light: #1a9090;
+      --teal-dark: #084f4f;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --cream: #faf7f2;
+      --deep: #0a1628;
+      --surface: #ffffff;
+      --text: #1a2336;
+      --text-muted: #6b7a8d;
+      --border: #e2e8f0;
+    }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-body {
-  background-color: #f0f8ff;
-  font-family: Arial;
-}
+    body {
+      background-color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
 
-.welcome-section {
-  height: 100vh;
-  background: url('back.gif') center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-}
+    /* ── WELCOME ── */
+    .welcome-section {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #052e2e 0%, #0a4d4d 40%, #0d6e6e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-.cards-section, .category-section {
-  display: none;
-  padding: 3rem;
-}
+    .welcome-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 110%, rgba(201,168,76,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-.category-card {
-  background: white;
-  padding: 2rem;
-  text-align: center;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .bubbles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-.category-card:hover {
-  transform: scale(1.05);
-}
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      animation: rise linear infinite;
+    }
 
-.ex-item-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 12px;
-}
+    @keyframes rise {
+      0%   { transform: translateY(110vh) scale(1); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+    }
 
-.ex-image {
-  height: 180px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
 
-.fixed-cart-btn {
-  position: fixed;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: green;
-  color: white;
-  padding: 10px 25px;
-  border-radius: 30px;
-  text-decoration: none;
-}
-</style>
+    .logo-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow: 0 0 0 6px rgba(201,168,76,0.25), 0 20px 60px rgba(0,0,0,0.4);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 6px rgba(201,168,76,0.25), 0 20px 60px rgba(0,0,0,0.4); }
+      50%      { box-shadow: 0 0 0 14px rgba(201,168,76,0.12), 0 20px 60px rgba(0,0,0,0.4); }
+    }
+
+    .logo-ring img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .welcome-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.2);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-section h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .welcome-section p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.95rem;
+      margin-bottom: 2.2rem;
+      max-width: 420px;
+    }
+
+    .explore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #1a0e00;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      padding: 13px 32px;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .explore-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(201,168,76,0.55);
+    }
+
+    .explore-btn svg { width: 16px; height: 16px; }
+
+    /* ── MAIN SHOP ── */
+    .shop-section {
+      display: none;
+    }
+
+    /* ── STICKY HEADER ── */
+    .shop-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+
+    .header-brand span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+    }
+
+    .cart-btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--teal);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .cart-btn-header:hover { background: var(--teal-dark); color: white; }
+
+    .cart-count {
+      background: var(--gold);
+      color: #1a0e00;
+      font-size: 0.7rem;
+      font-weight: 700;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .category-section {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cat-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: var(--cream);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .cat-tab .cat-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .cat-tab .cat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    .cat-tab .cat-sub {
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .cat-tab:hover, .cat-tab.active {
+      border-color: var(--teal);
+      background: #e6f4f4;
+    }
+
+    .cat-tab.active .cat-label { color: var(--teal-dark); }
+
+    /* ── SUBCATEGORY PILLS ── */
+    .subcategory-bar {
+      display: none;
+      padding: 0.75rem 1.5rem;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subcategory-bar.visible { display: flex; }
+
+    .sub-pill {
+      padding: 5px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: white;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sub-pill:hover, .sub-pill.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    /* ── SEARCH ── */
+    .search-wrap {
+      padding: 1rem 1.5rem 0.5rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .search-input-wrap {
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 10px 16px 10px 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input-wrap input:focus { border-color: var(--teal); }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .products-area {
+      padding: 1.5rem;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    .fish-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 175px;
+      cursor: pointer;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .card-img-wrap img { transform: scale(1.07); }
+
+    .card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--teal);
+      color: white;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 0.85rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
+    .card-price span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .btn-add {
+      flex: 1;
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover { background: var(--teal-dark); }
+
+    .btn-vid {
+      background: #f0fafa;
+      border: 1.5px solid var(--teal);
+      color: var(--teal);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-vid:hover { background: var(--teal); color: white; }
+
+    .btn-vid-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* ── IMAGE MODAL ── */
+    #imageModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(6px);
+    }
+
+    #imageModal.open { display: flex; }
+
+    #imageModal img {
+      max-width: 88vw;
+      max-height: 88vh;
+      border-radius: 14px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: zoomIn 0.25s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.82); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    #modalClose {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+      z-index: 10000;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    #modalClose:hover { opacity: 1; }
+
+    /* ── TOAST ── */
+    .toast-container {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: var(--deep);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.2s forwards;
+    }
+
+    @keyframes toastIn  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
+
+    /* ── FIXED CART BAR ── */
+    .fixed-cart-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--teal-dark);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 200;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    }
+
+    .fixed-cart-bar .cart-info {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.82rem;
+    }
+
+    .fixed-cart-bar .cart-info strong {
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .fixed-cart-bar a {
+      background: var(--gold);
+      color: #1a0e00;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 9px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .fixed-cart-bar a:hover { background: var(--gold-light); }
+
+    @media (max-width: 576px) {
+      .fish-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .cat-tab { min-width: 90px; padding: 10px 12px; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- WELCOME -->
+<!-- ══════════════ WELCOME ══════════════ -->
 <div class="welcome-section" id="welcome">
-  <h1>Aqua Fish Farm Rajahmundry</h1>
-  <button class="btn btn-light mt-3" onclick="showCategories()">Explore More</button>
+  <div class="bubbles" id="bubblesContainer"></div>
+
+  <div class="logo-wrap">
+    <div class="logo-ring">
+      <img src="logo.jpg" alt="Aqua Fish Farm Logo" />
+    </div>
+  </div>
+
+  <div class="welcome-badge">Est. Rajahmundry, India</div>
+
+  <h1>Aqua Fish Farm<br/>Rajahmundry</h1>
+  <p>Premium ornamental fish, aquatic plants, live cultures & fish care products — curated with passion.</p>
+
+  <button class="explore-btn" onclick="showShop()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Explore Collection
+  </button>
 </div>
 
-<!-- CATEGORY SECTION -->
-<div class="container category-section" id="categories">
-  <h2 class="text-center mb-4">Categories</h2>
+<!-- ══════════════ SHOP ══════════════ -->
+<div class="shop-section" id="shopSection">
 
-  <div class="row text-center">
-    <div class="col-md-4 mb-3">
-      <div class="category-card" onclick="loadCategory('dry')">Dry Items</div>
+  <!-- Sticky Header -->
+  <div class="shop-header">
+    <div class="header-brand">
+      <img src="logo.jpg" alt="logo" />
+      <span>Aqua Fish Farm</span>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="category-card" onclick="loadCategory('live')">Live</div>
+    <a href="cart.html" class="cart-btn-header" id="cartHeaderBtn">
+      🛒 Cart <span class="cart-count" id="cartCountBadge">0</span>
+    </a>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="category-section">
+    <div class="category-tabs">
+      <div class="cat-tab active" data-cat="live" onclick="selectCategory('live')">
+        <div class="cat-icon">🐠</div>
+        <div class="cat-label">Live</div>
+        <div class="cat-sub">Fish & Plants</div>
+      </div>
+      <div class="cat-tab" data-cat="feed" onclick="selectCategory('feed')">
+        <div class="cat-icon">🥣</div>
+        <div class="cat-label">Feed</div>
+        <div class="cat-sub">Food & Cultures</div>
+      </div>
+      <div class="cat-tab" data-cat="dry" onclick="selectCategory('dry')">
+        <div class="cat-icon">💊</div>
+        <div class="cat-label">Dry Items</div>
+        <div class="cat-sub">Medicine & Nets</div>
+      </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="category-card" onclick="loadCategory('feed')">Feed</div>
+  </div>
+
+  <!-- Subcategory Pills -->
+  <div class="subcategory-bar visible" id="subBar">
+    <div class="sub-pill active" data-sub="all" onclick="selectSub('all')">All</div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search by name…" oninput="renderProducts()" />
     </div>
+  </div>
+
+  <!-- Products -->
+  <div class="products-area">
+    <div class="section-heading" id="sectionTitle">Live — All</div>
+    <div class="fish-grid" id="fishGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="icon">🐟</div>
+      <p>No items found. Try another category or search.</p>
+    </div>
+  </div>
+
+  <div style="height:70px;"></div>
+
+  <!-- Fixed Cart Bar -->
+  <div class="fixed-cart-bar" id="fixedCartBar">
+    <div class="cart-info">
+      <strong id="fixedCartCount">0 items</strong><br/>in your cart
+    </div>
+    <a href="cart.html">View Cart →</a>
   </div>
 </div>
 
-<!-- ITEMS -->
-<div class="container cards-section" id="cards">
-  <h2 class="text-center mb-4" id="categoryTitle"></h2>
-  <div class="row" id="fishCards"></div>
-
-  <div class="text-center mt-3">
-    <button class="btn btn-secondary" onclick="goBack()">Back</button>
-  </div>
-
-  <a href="cart.html" class="fixed-cart-btn">View Cart</a>
+<!-- Image Modal -->
+<div id="imageModal" onclick="closeModal()">
+  <span id="modalClose" onclick="closeModal()">✕</span>
+  <img id="modalImage" />
 </div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
+  /* ───── DATA ───── */
+  const fishList = [
+    // LIVE – FISH (guppies, betta, other)
+    { name:"Mixed Guppy (Pair)",           price:60,  img:"mixedguppy.jpg",    link:"#",  cat:"live", sub:"Guppies" },
+    { name:"Japanese Blue Tail (Pair)",    price:500, img:"japanese.jpg",       link:"https://youtube.com/shorts/aJuZlUWW-PI?si=Z-0Ml7dHExWRn0zN", cat:"live", sub:"Guppies" },
+    { name:"Yellow Tiger King Cobra",      price:500, img:"yellowtiger.jpg",    link:"https://youtube.com/shorts/S5PM_e0UK2g?si=ZwAvS-nrB9iY-_4p", cat:"live", sub:"Guppies" },
+    { name:"HB Blue (Pair)",               price:500, img:"hb.jpg",             link:"https://youtube.com/shorts/fRKmTM7z8QE?si=dBrDqpFy8dQOS8I4", cat:"live", sub:"Guppies" },
+    { name:"White Tuxedo (Pair)",          price:500, img:"white.jpg",          link:"https://youtube.com/shorts/zJDzvLHH7tA?si=k0GVNz_jhWljlqKF", cat:"live", sub:"Guppies" },
+    { name:"Red Lace (Pair)",              price:500, img:"redlace.jpg",        link:"https://youtube.com/shorts/3ts_E8JXCAA?si=E7wsB2WcKC4o4AEh", cat:"live", sub:"Guppies" },
+    { name:"Santa Claus (Pair)",           price:250, img:"santaclaus.jpg",     link:"https://youtube.com/shorts/selEBe5fBjY?si=ruT19HEm5tGawhgA", cat:"live", sub:"Guppies" },
+    { name:"24k Gold Ribbon (Pair)",       price:600, img:"24k-gold-ribbon-guppy.jpg", link:"https://youtube.com/shorts/uqk-nD2S-Vw?si=X2C0EdLxdt3_OJPb", cat:"live", sub:"Guppies" },
+    { name:"Purple Berry Dragon (Pair)",   price:300, img:"purple.jpg",         link:"https://youtube.com/shorts/R-GsJGV5EMk?si=Q2W5TRvz_mPRM9pq", cat:"live", sub:"Guppies" },
+    { name:"Albino Red Ear Koi (Pair)",    price:500, img:"2.jpg",              link:"https://youtube.com/shorts/BaIKbnDfXYQ?si=XiZxh2N3Q6y750Tx", cat:"live", sub:"Guppies" },
+    { name:"Albino Full Red (Pair)",       price:250, img:"albinored.jpg",      link:"https://youtube.com/shorts/B6p7lUUo7uU?si=aTbnotPXljV7hI2h", cat:"live", sub:"Guppies" },
+    { name:"Albino Red Tuxedo (Pair)",     price:350, img:"tuxedo.jpg",         link:"https://youtube.com/shorts/B6p7lUUo7uU?si=aTbnotPXljV7hI2h", cat:"live", sub:"Guppies" },
+    { name:"Blue Panda (Pair)",            price:300, img:"blue.jpg",           link:"https://youtube.com/shorts/otJiS_9LKAM?si=tfqcGBe_-TiXPq4Z", cat:"live", sub:"Guppies" },
+    { name:"Jet Black Dumbo Ear (Pair)",   price:250, img:"fullbalck.jpg",      link:"https://youtube.com/shorts/Vb529wdHZoQ?si=0tAB6WGa1ZGDCY3y", cat:"live", sub:"Guppies" },
+    { name:"Chilli Dumbo Ear (Pair)",      price:250, img:"chilli.jpg",         link:"https://youtube.com/shorts/LRP4y9c8wH8?si=MCsNLBPS65jv_dZS", cat:"live", sub:"Guppies" },
+    { name:"Polar Parrot Blue (Pair)",     price:500, img:"bluepolarparrot.jpg",link:"https://youtube.com/shorts/Ja7QZJyTLMU?si=e6ErKGFO3N9p_Du3", cat:"live", sub:"Guppies" },
+    { name:"Polar Parrot Platinum (Pair)", price:500, img:"platinumpolar.jpg",  link:"https://www.youtube.com/shorts/4bxonfZtOyA", cat:"live", sub:"Guppies" },
+    { name:"Yellow Tuxedo (Pair)",         price:200, img:"yellowtuxedo.jpg",   link:"https://youtube.com/shorts/UHAVInnVHHw?si=AZmfVHQ8Z6Q0WSzH", cat:"live", sub:"Guppies" },
+    { name:"Platinum Koi Dumbo Big Ear (Pair)", price:300, img:"platinumkoi.jpg", link:"https://youtube.com/shorts/vv8cQe621RM?si=44c_-Eq4lMPieQ5O", cat:"live", sub:"Guppies" },
+    { name:"Pink Fire (Pair)",             price:250, img:"images.jpg",         link:"https://youtube.com/shorts/1tYTPqwqS7o?si=5mwiCopXohYqlpl_", cat:"live", sub:"Guppies" },
+    { name:"Dark Purple (Pair)",           price:300, img:"dark.jpg",           link:"https://youtube.com/shorts/tUoGcGfHsHA?si=PdWVGZtGSCi1h2aJ", cat:"live", sub:"Guppies" },
+    { name:"Metal Red Lace Rose Tail (Pair)", price:300, img:"lace.jpg",        link:"https://youtube.com/shorts/j5irWoevf7g?si=opqe9KeJPrOmjzcB", cat:"live", sub:"Guppies" },
+    { name:"Topaz Blue (Pair)",            price:300, img:"topaz.jpg",          link:"https://youtube.com/shorts/tJnqFodu5LM?si=MSVR1QXVV7uIo3Ct", cat:"live", sub:"Guppies" },
+    { name:"Sea Thru Koi (Pair)",          price:300, img:"seethru.jpg",        link:"https://youtube.com/shorts/tzuPUjDLX_k?si=bNwJjckamcg5ReUS", cat:"live", sub:"Guppies" },
+    { name:"Platinum Red Dragon (Pair)",   price:500, img:"platinum red dragon.jpg", link:"https://youtu.be/HaY7Q_fve1U?si=OhKYfq0dvoUQDl6F", cat:"live", sub:"Guppies" },
+    { name:"Yellow Mosaic HalfMoon (Pair)",price:500, img:"Yellow mosaic halfmoon.jpg", link:"https://youtube.com/shorts/5gRgYyshozw?si=98ECOYsiT77156TV", cat:"live", sub:"Guppies" },
+    { name:"Blue Dragon HalfMoon (Pair)",  price:500, img:"blue dragon.jpg",    link:"https://youtube.com/shorts/eUKdckTB4Rw?si=-hKOPimDggO5C4-L", cat:"live", sub:"Guppies" },
+    { name:"Moscow Green Guppy (Pair)",    price:350, img:"moscow green.jpg",   link:"https://youtube.com/shorts/F_SU40qTTns?si=b1Va0jBnzUh37Ac5", cat:"live", sub:"Guppies" },
+    { name:"Green Whale Tail Zebra (Pair)",price:250, img:"green wheel.jpg",    link:"https://youtube.com/shorts/Z-yL1JXQ5ms?si=6X0_DNDLbFxdey34", cat:"live", sub:"Guppies" },
 
-let cart = JSON.parse(localStorage.getItem("fishCart")) || [];
+    // Betta
+    { name:"Dumbo Ear Betta",              price:250, img:"dumbo ear beta.jpg", link:"https://youtube.com/shorts/bO0MPLHOvBI?si=sRmwGEZRgqn9G41S", cat:"live", sub:"Betta" },
+    { name:"Full Red Ohm Betta",           price:250, img:"full red.jpg",       link:"https://youtube.com/shorts/BayVvcUBGac?si=NoP_-jjPxIEkYche", cat:"live", sub:"Betta" },
+    { name:"Royal Blue Betta",             price:250, img:"blue betta.jpg",     link:"https://youtube.com/shorts/QIdq1sVfByE?si=0X0r8EJgwoL7o8fc", cat:"live", sub:"Betta" },
+    { name:"Copper Betta",                 price:250, img:"copper.jpg",         link:"https://youtube.com/shorts/QIdq1sVfByE?si=0X0r8EJgwoL7o8fc", cat:"live", sub:"Betta" },
+    { name:"Female Betta (Each)",          price:100, img:"femal betta.jpg",    link:"#", cat:"live", sub:"Betta" },
 
-function showCategories(){
-  document.getElementById("welcome").style.display = "none";
-  document.getElementById("categories").style.display = "block";
-}
+    // Other Fish
+    { name:"Flowerhorn Fish Fry (Pair)",   price:300, img:"flowerhorn.jpg",     link:"https://youtube.com/shorts/6XgJ5aMcTmo?si=EvWCZ8-PDF4EuF6p", cat:"live", sub:"Other Fish" },
+    { name:"Platinum Red Dumbo Big Ear (Pair)", price:300, img:"platinum.jpg",  link:"https://youtube.com/shorts/aXR_1jIIEWw?si=ahAxnrU0iucvvPjp", cat:"live", sub:"Other Fish" },
+    { name:"Japanese Imported Koi 3/4-Inch (Each)", price:350, img:"3-inch.jpg",link:"#", cat:"live", sub:"Other Fish" },
+    { name:"Thailand Imported Koi 5-Inch (Each)", price:500, img:"thai.jpg",    link:"#", cat:"live", sub:"Other Fish" },
+    { name:"Fresh Water Shrimp (Pair)",    price:200, img:"fresh water shrimp.jpg", link:"https://youtube.com/shorts/rqQfGD7ca88?si=io80j4l1DMPGReYw", cat:"live", sub:"Other Fish" },
+    { name:"Choco Black Shrimp (Pair)",    price:200, img:"choco black shrimp.jpg", link:"https://youtube.com/shorts/zdA8JUrwYWQ?si=GsDMLHGcNgf0AKiK", cat:"live", sub:"Other Fish" },
+    { name:"Blue Dream Shrimp (Pair)",     price:200, img:"blue dream.png",     link:"https://youtube.com/shorts/9sgQyLwvAxQ?si=9MT6F8F3vRJnvbU5", cat:"live", sub:"Other Fish" },
 
-function goBack(){
-  document.getElementById("cards").style.display = "none";
-  document.getElementById("categories").style.display = "block";
-}
+    // Snails
+    { name:"Assassin Snail (Each)",        price:120, img:"snails.jpg",         link:"#", cat:"live", sub:"Snails" },
+    { name:"Onion Snail (Each)",           price:150, img:"onion.jpg",          link:"#", cat:"live", sub:"Snails" },
+    { name:"Zebra Snail (Each)",           price:150, img:"zebra.jpg",          link:"#", cat:"live", sub:"Snails" },
+    { name:"Apple Snail (Each)",           price:15,  img:"applesnail.jpg",     link:"#", cat:"live", sub:"Snails" },
+    { name:"Red Ramshorn Snail (Each)",    price:25,  img:"redsnail.jpg",       link:"#", cat:"live", sub:"Snails" },
 
-const fishList = [
+    // Plants
+    { name:"Red Caboomba",                 price:100, img:"Redkaboomba.jpg",    link:"#", cat:"live", sub:"Plants" },
+    { name:"Horn Wort",                    price:50,  img:"horn.jpg",           link:"#", cat:"live", sub:"Plants" },
+    { name:"Coin Plant",                   price:100, img:"coin.jpg",           link:"#", cat:"live", sub:"Plants" },
+    { name:"Foxtail",                      price:50,  img:"foxtale.jpg",        link:"#", cat:"live", sub:"Plants" },
+    { name:"Water Lettuce",                price:50,  img:"water lettuce.jpg",  link:"#", cat:"live", sub:"Plants" },
+    { name:"Guppy Grass",                  price:50,  img:"guppy grass.jpg",    link:"#", cat:"live", sub:"Plants" },
 
-/* LIVE */
-{ name:"Mixed Guppy", price:60, img:"mixedguppy.jpg", category:"live" },
-{ name:"Japanese Blue Tail", price:500, img:"japanese.jpg", category:"live" },
-{ name:"Coin Plant", price:100, img:"coin.jpg", category:"live" },
-{ name:"Foxtail", price:50, img:"foxtale.jpg", category:"live" },
+    // FEED
+    { name:"Microworm Culture",            price:150, img:"microworm.jpg",      link:"#", cat:"feed", sub:"Live Cultures" },
+    { name:"Vinegar Eel Culture",          price:150, img:"vinegar.jpg",        link:"#", cat:"feed", sub:"Live Cultures" },
+    { name:"Moina Culture",                price:150, img:"moina.jpg",          link:"https://youtube.com/shorts/MiGXVUK5nJ8?si=sAAvVc_Hc3Vj-mAd", cat:"feed", sub:"Live Cultures" },
+    { name:"Daphnia",                      price:150, img:"moina.jpg",          link:"https://youtube.com/shorts/b-57Eck7XAc?si=YvZP-lBW2wFRpPsK", cat:"feed", sub:"Live Cultures" },
+    { name:"Artemia (1 Capsule)",          price:20,  img:"artemina.jpg",       link:"#", cat:"feed", sub:"Dry Feed" },
+    { name:"Decap Artemia (45g)",          price:500, img:"decap.jpg",          link:"#", cat:"feed", sub:"Dry Feed" },
+    { name:"Artemia Flakes (100g)",        price:250, img:"artemiafalkes.jpg",  link:"#", cat:"feed", sub:"Dry Feed" },
+    { name:"Insect O Pro (45g)",           price:200, img:"msect.jpg",          link:"#", cat:"feed", sub:"Dry Feed" },
+    { name:"Community Formula (25g)",      price:100, img:"community.jpg",      link:"#", cat:"feed", sub:"Dry Feed" },
+    { name:"Betta Feed (25g)",             price:200, img:"Betta.jpg",          link:"#", cat:"feed", sub:"Dry Feed" },
 
-/* DRY */
-{ name:"Baby Nets", price:100, img:"nets.jpg", category:"dry" },
-{ name:"Moina Net", price:100, img:"moina.jpg", category:"dry" },
-{ name:"Stress Cure", price:150, img:"stress.jpg", category:"dry" },
-{ name:"Blue Cure", price:40, img:"bluecure.jpg", category:"dry" },
+    // DRY ITEMS
+    { name:"Stress Cure (100ml)",          price:150, img:"stress.jpg",         link:"#", cat:"dry", sub:"Medicine" },
+    { name:"Blue Cure (30ml)",             price:40,  img:"bluecure.jpg",       link:"#", cat:"dry", sub:"Medicine" },
+    { name:"Baby Nets (Each)",             price:100, img:"nets.jpg",           link:"#", cat:"dry", sub:"Nets & Tools" },
+    { name:"Moina Net (Each)",             price:100, img:"moina.jpg",          link:"#", cat:"dry", sub:"Nets & Tools" },
+  ];
 
-/* FEED */
-{ name:"Betta Feed", price:200, img:"Betta.jpg", category:"feed" },
-{ name:"Artemia Flakes", price:250, img:"artemiafalkes.jpg", category:"feed" },
-{ name:"Community Formula", price:100, img:"community.jpg", category:"feed" }
+  /* ── Subcategories per category ── */
+  const subsByCategory = {
+    live: ["All","Guppies","Betta","Other Fish","Snails","Plants"],
+    feed: ["All","Live Cultures","Dry Feed"],
+    dry:  ["All","Medicine","Nets & Tools"],
+  };
 
-];
+  const catLabels = { live:"Live", feed:"Feed", dry:"Dry Items" };
 
-function loadCategory(type){
+  let currentCat = "live";
+  let currentSub = "all";
+  let cart = JSON.parse(localStorage.getItem("fishCart")) || [];
 
-  document.getElementById("categories").style.display = "none";
-  document.getElementById("cards").style.display = "block";
+  /* ── Bubbles ── */
+  (function makeBubbles() {
+    const cont = document.getElementById("bubblesContainer");
+    for (let i = 0; i < 18; i++) {
+      const b = document.createElement("div");
+      b.className = "bubble";
+      const size = 20 + Math.random() * 70;
+      b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-80px;animation-duration:${8+Math.random()*14}s;animation-delay:${Math.random()*12}s;`;
+      cont.appendChild(b);
+    }
+  })();
 
-  const container = document.getElementById("fishCards");
-  container.innerHTML = "";
-
-  document.getElementById("categoryTitle").innerText =
-    type.charAt(0).toUpperCase() + type.slice(1) + " Items";
-
-  const filtered = fishList.filter(item => item.category === type);
-
-  filtered.forEach((item, index) => {
-
-    const card = document.createElement("div");
-    card.className = "col-md-3 mb-4";
-
-    card.innerHTML = `
-      <div class="ex-item-card text-center">
-        <img src="${item.img}" class="ex-image w-100 mb-2"/>
-        <h5>${item.name}</h5>
-        <p>₹${item.price}</p>
-
-        <button class="btn btn-primary" onclick="addToCart(${index})">
-          Add to Cart
-        </button>
-      </div>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-function addToCart(index){
-  const item = fishList[index];
-
-  const exists = cart.find(i => i.name === item.name);
-  if(exists){
-    alert("Already added!");
-    return;
+  function showShop() {
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("shopSection").style.display = "block";
+    updateCartUI();
+    renderProducts();
   }
 
-  cart.push({...item, quantity:1});
-  localStorage.setItem("fishCart", JSON.stringify(cart));
+  if (localStorage.getItem("showCards") === "true") {
+    showShop();
+    localStorage.removeItem("showCards");
+  }
 
-  alert("Added to cart!");
-}
+  function selectCategory(cat) {
+    currentCat = cat;
+    currentSub = "all";
+    document.querySelectorAll(".cat-tab").forEach(t => t.classList.toggle("active", t.dataset.cat === cat));
+    renderSubBar();
+    renderProducts();
+  }
 
+  function selectSub(sub) {
+    currentSub = sub;
+    document.querySelectorAll(".sub-pill").forEach(p => p.classList.toggle("active", p.dataset.sub === sub));
+    renderProducts();
+  }
+
+  function renderSubBar() {
+    const bar = document.getElementById("subBar");
+    const subs = subsByCategory[currentCat];
+    bar.innerHTML = subs.map(s => `<div class="sub-pill${s==="All"?" active":""}" data-sub="${s==="All"?"all":s}" onclick="selectSub('${s==="All"?"all":s}')">${s}</div>`).join("");
+    bar.classList.add("visible");
+  }
+
+  function renderProducts() {
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
+    let items = fishList.filter(f => f.cat === currentCat);
+    if (currentSub !== "all") items = items.filter(f => f.sub === currentSub);
+    if (query) items = items.filter(f => f.name.toLowerCase().includes(query));
+    items.sort((a,b) => a.price - b.price);
+
+    const subLabel = currentSub === "all" ? "All" : currentSub;
+    document.getElementById("sectionTitle").textContent = `${catLabels[currentCat]} — ${subLabel}`;
+
+    const grid = document.getElementById("fishGrid");
+    const empty = document.getElementById("emptyState");
+
+    if (items.length === 0) {
+      grid.innerHTML = "";
+      empty.style.display = "block";
+    } else {
+      empty.style.display = "none";
+      grid.innerHTML = items.map(fish => {
+        const idx = fishList.indexOf(fish);
+        const hasVideo = fish.link && fish.link !== "#";
+        return `
+          <div class="product-card">
+            <div class="card-img-wrap" onclick="openModal('${fish.img}')">
+              <img src="${fish.img}" alt="${fish.name}" loading="lazy"/>
+              <span class="card-badge">${fish.sub}</span>
+            </div>
+            <div class="card-body">
+              <div class="card-name">${fish.name}</div>
+              <div class="card-price">₹${fish.price}<span>/ unit</span></div>
+              <div class="card-actions">
+                <button class="btn-add" onclick="addToCart(${idx})">+ Add</button>
+                ${hasVideo
+                  ? `<a class="btn-vid" href="${fish.link}" target="_blank">▶ View</a>`
+                  : `<a class="btn-vid btn-vid-disabled" href="#">▶ View</a>`
+                }
+              </div>
+            </div>
+          </div>`;
+      }).join("");
+    }
+  }
+
+  function addToCart(index) {
+    const fish = { ...fishList[index], quantity: 1 };
+    const exists = cart.find(i => i.name === fish.name);
+    if (exists) {
+      showToast(`${fish.name} is already in cart`);
+      return;
+    }
+    cart.push(fish);
+    localStorage.setItem("fishCart", JSON.stringify(cart));
+    updateCartUI();
+    showToast(`✓ ${fish.name} added to cart`);
+  }
+
+  function updateCartUI() {
+    const count = cart.reduce((s,i) => s + i.quantity, 0);
+    document.getElementById("cartCountBadge").textContent = count;
+    document.getElementById("fixedCartCount").textContent = `${count} item${count !== 1 ? "s" : ""}`;
+  }
+
+  function openModal(src) {
+    document.getElementById("modalImage").src = src;
+    document.getElementById("imageModal").classList.add("open");
+  }
+
+  function closeModal() {
+    document.getElementById("imageModal").classList.remove("open");
+  }
+
+  function showToast(msg) {
+    const cont = document.getElementById("toastContainer");
+    const t = document.createElement("div");
+    t.className = "toast-msg";
+    t.textContent = msg;
+    cont.appendChild(t);
+    setTimeout(() => t.remove(), 2600);
+  }
 </script>
-
 </body>
 </html>
